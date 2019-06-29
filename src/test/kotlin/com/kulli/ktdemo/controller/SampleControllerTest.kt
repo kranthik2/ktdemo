@@ -29,6 +29,6 @@ class SampleControllerTest {
 
     @After
     fun destroy() {
-        println("Completed tes")
+        println("Completed test")
     }
 }
