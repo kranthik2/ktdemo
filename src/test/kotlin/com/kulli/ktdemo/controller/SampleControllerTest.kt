@@ -1,5 +1,6 @@
 package com.kulli.ktdemo.controller
 
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
@@ -11,7 +12,7 @@ class SampleControllerTest {
 
     @Before
     fun setUp() {
-        println("String tests")
+        println("Starting test")
     }
 
     @Test
@@ -24,5 +25,10 @@ class SampleControllerTest {
     fun helloWorldPost() {
        val result = sampleController.helloWorldPost("testValue")
         assertNotNull(result)
+    }
+
+    @After
+    fun destroy() {
+        println("Completed tes")
     }
 }
