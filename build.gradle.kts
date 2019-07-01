@@ -1,8 +1,12 @@
+import groovy.transform.Immutable
+import org.jetbrains.kotlin.com.google.common.collect.ImmutableMap
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
 	id("org.springframework.boot") version "2.1.6.RELEASE"
 	id("io.spring.dependency-management") version "1.0.7.RELEASE"
+	id("com.palantir.docker") version "0.22.1"
+	id ("com.palantir.docker-run") version "0.22.1"
 	kotlin("jvm") version "1.2.71"
 	kotlin("plugin.spring") version "1.2.71"
 }
@@ -29,3 +33,22 @@ tasks.withType<KotlinCompile> {
 		jvmTarget = "1.8"
 	}
 }
+//gradle docker plugin configuration
+apply(plugin = "com.palantir.docker")
+
+docker {
+	name = "hub.docker.com/mrkulli/ktdemo:".plus(version)
+	tag("url", "hub.docker.com/mrkulli/ktdemo:".plus(version))
+	buildArgs(ImmutableMap.of("name","ktdemo"))
+    copySpec.from("build").into("build")
+	pull(true)
+    setDockerfile(file("Dockerfile"))
+}
+
+dockerRun {
+	name = "ktdemo"
+	image = "hub.docker.com/mrkulli/ktdemo:".plus(version)
+	ports("8080:8080")
+}
+
+
