@@ -9,6 +9,7 @@ plugins {
     id("com.palantir.docker-run") version "0.22.1"
     kotlin("jvm") version "1.2.71"
     kotlin("plugin.spring") version "1.2.71"
+    jacoco
 }
 
 group = "com.kulli"
@@ -35,6 +36,7 @@ tasks.withType<KotlinCompile> {
 }
 //gradle docker plugin configuration
 apply(plugin = "com.palantir.docker")
+apply(plugin ="jacoco")
 
 docker {
     name = "mrkulli/ktdemo:".plus(version)
@@ -50,4 +52,9 @@ dockerRun {
     name = "ktdemo"
     image = "mrkulli/ktdemo:".plus(version)
     ports("8080:8080")
+}
+
+jacoco {
+    toolVersion = "0.8.3"
+    reportsDir = file("$buildDir/customJacocoReportDir")
 }
