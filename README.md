@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/kranthik2/ktdemo.svg?branch=master)](https://travis-ci.org/kranthik2/ktdemo)
 # ktdemo
 Sample spring boot rest service using kotlin
 
